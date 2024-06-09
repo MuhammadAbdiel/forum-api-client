@@ -32,7 +32,7 @@ const api = (() => {
     const { status } = responseJson;
 
     if (status !== "success") {
-      throw new Error("Failed to register");
+      throw new Error(responseJson.message);
     }
 
     const {
@@ -54,13 +54,28 @@ const api = (() => {
     const { status } = responseJson;
 
     if (status !== "success") {
-      throw new Error("Failed to login");
+      throw new Error(responseJson.message);
     }
 
     const {
       data: { accessToken, refreshToken },
     } = responseJson;
     return { accessToken, refreshToken };
+  }
+
+  async function getOwnProfile() {
+    const response = await _fetchWithAuth(`${BASE_URL}/users/me`);
+    const responseJson = await response.json();
+    const { status } = responseJson;
+
+    if (status !== "success") {
+      throw new Error(responseJson.message);
+    }
+
+    const {
+      data: { user },
+    } = responseJson;
+    return user;
   }
 
   async function createThread({ title, body }) {
@@ -76,7 +91,7 @@ const api = (() => {
     const { status } = responseJson;
 
     if (status !== "success") {
-      throw new Error("Failed to create thread");
+      throw new Error(responseJson.message);
     }
 
     const {
@@ -92,7 +107,7 @@ const api = (() => {
     const { status } = responseJson;
 
     if (status !== "success") {
-      throw new Error("Failed to get threads");
+      throw new Error(responseJson.message);
     }
 
     const {
@@ -108,7 +123,7 @@ const api = (() => {
     const { status } = responseJson;
 
     if (status !== "success") {
-      throw new Error("Failed to get threads");
+      throw new Error(responseJson.message);
     }
 
     const {
@@ -133,7 +148,7 @@ const api = (() => {
     const { status } = responseJson;
 
     if (status !== "success") {
-      throw new Error("Failed to create comment");
+      throw new Error(responseJson.message);
     }
 
     const {
@@ -154,7 +169,7 @@ const api = (() => {
     const { status } = responseJson;
 
     if (status !== "success") {
-      throw new Error("Failed to delete comment");
+      throw new Error(responseJson.message);
     }
   }
 
@@ -174,7 +189,7 @@ const api = (() => {
     const { status } = responseJson;
 
     if (status !== "success") {
-      throw new Error("Failed to create reply");
+      throw new Error(responseJson.message);
     }
 
     const {
@@ -195,7 +210,7 @@ const api = (() => {
     const { status } = responseJson;
 
     if (status !== "success") {
-      throw new Error("Failed to delete reply");
+      throw new Error(responseJson.message);
     }
   }
 
@@ -204,6 +219,7 @@ const api = (() => {
     getAccessToken,
     register,
     login,
+    getOwnProfile,
     createThread,
     getAllThread,
     getThreadById,
