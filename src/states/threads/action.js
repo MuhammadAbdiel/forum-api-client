@@ -53,6 +53,11 @@ function asyncAddThread({ title, body }) {
       const thread = await api.createThread({ title, body });
 
       dispatch(addThreadActionCreator(thread));
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "Create Thread Successful",
+      });
     } catch (error) {
       Swal.fire({
         icon: "error",
