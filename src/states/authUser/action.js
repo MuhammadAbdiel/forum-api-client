@@ -38,7 +38,7 @@ function asyncSetAuthUser({ username, password }) {
       Swal.fire({
         icon: "success",
         title: "Success",
-        text: "Register Successful",
+        text: "Login Successful",
       });
     } catch (error) {
       Swal.fire({

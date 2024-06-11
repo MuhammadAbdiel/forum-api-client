@@ -51,8 +51,20 @@ function asyncAddThread({ title, body }) {
 
     try {
       const thread = await api.createThread({ title, body });
+      const user = await api.getOwnProfile();
 
-      dispatch(addThreadActionCreator(thread));
+      const response = {
+        id: thread.id,
+        title: thread.title,
+        body,
+        date: new Date().toISOString(),
+        user: {
+          username: user.username,
+          fullname: user.fullname,
+        },
+      };
+
+      dispatch(addThreadActionCreator(response));
       Swal.fire({
         icon: "success",
         title: "Success",

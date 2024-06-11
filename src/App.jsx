@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import Loading from "./components/Loading";
 import AuthContext from "./contexts/AuthContext";
 import Swal from "sweetalert2";
+import DetailPage from "./pages/DetailPage";
 
 export default function App() {
   const authUser = useSelector((state) => state.authUser);
@@ -67,6 +68,7 @@ export default function App() {
       <main>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/threads/:id" element={<DetailPage />} />
           <Route path="/login" element={<Navigate to="/" />} />
           <Route path="/register" element={<Navigate to="/" />} />
           <Route path="/404" element={<NotFoundPage />} />

@@ -24,12 +24,19 @@ function clearThreadDetailActionCreator() {
 
 function asyncReceiveThreadDetail(threadId) {
   return async (dispatch) => {
+    dispatch(clearThreadDetailActionCreator());
     dispatch(showLoading());
 
     try {
       const threadDetail = await api.getThreadById(threadId);
+      const user = await api.getOwnProfile();
 
-      dispatch(receiveThreadDetailActionCreator(threadDetail));
+      const response = {
+        ...threadDetail,
+        ...user,
+      };
+
+      dispatch(receiveThreadDetailActionCreator(response));
     } catch (error) {
       Swal.fire({
         icon: "error",

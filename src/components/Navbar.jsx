@@ -20,7 +20,7 @@ import {
 import AuthContext from "@/contexts/AuthContext";
 import { useContext } from "react";
 
-export default function Navbar() {
+export default function Navbar({ keyword, onKeywordChangeHandler }) {
   const { authUser, onLogout } = useContext(AuthContext);
 
   return (
@@ -68,8 +68,10 @@ export default function Navbar() {
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
               type="search"
-              placeholder="Search threads..."
+              placeholder="Search thread by title"
               className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
+              value={keyword}
+              onChange={(event) => onKeywordChangeHandler(event.target.value)}
             />
           </div>
         </form>
