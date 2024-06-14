@@ -29,11 +29,9 @@ function asyncReceiveThreadDetail(threadId) {
 
     try {
       const threadDetail = await api.getThreadById(threadId);
-      const user = await api.getOwnProfile();
 
       const response = {
         ...threadDetail,
-        ...user,
       };
 
       dispatch(receiveThreadDetailActionCreator(response));

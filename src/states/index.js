@@ -4,8 +4,8 @@ import isPreloadReducer from "./isPreload/reducer";
 import authUserReducer from "./authUser/reducer";
 import threadsReducer from "./threads/reducer";
 import threadDetailReducer from "./threadDetail/reducer";
-import commentReducer from "./comment/reducer";
-import replyReducer from "./reply/reducer";
+import commentsReducer from "./comments/reducer";
+import repliesReducer from "./replies/reducer";
 
 const store = configureStore({
   reducer: {
@@ -14,8 +14,8 @@ const store = configureStore({
     authUser: authUserReducer,
     threads: threadsReducer,
     threadDetail: threadDetailReducer,
-    comment: commentReducer,
-    reply: replyReducer,
+    comments: commentsReducer,
+    replies: repliesReducer,
   },
 });
 

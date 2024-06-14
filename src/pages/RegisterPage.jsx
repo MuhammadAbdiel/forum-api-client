@@ -66,6 +66,7 @@ export default function RegisterPage() {
     dispatch(asyncRegisterUser({ username, password, fullname }));
 
     navigate("/");
+    form.reset();
   };
 
   return (

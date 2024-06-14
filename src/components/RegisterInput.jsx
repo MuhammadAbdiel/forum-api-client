@@ -10,7 +10,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Eye, EyeOff } from "lucide-react";
-import { Link } from "react-router-dom";
 
 export default function RegisterInput({
   form,
@@ -67,9 +66,6 @@ export default function RegisterInput({
             <FormItem>
               <div className="flex items-center justify-between">
                 <FormLabel>Password</FormLabel>
-                <Link to="#" className="ml-auto inline-block text-sm underline">
-                  Forgot your password?
-                </Link>
               </div>
               <FormControl>
                 <div className="relative">

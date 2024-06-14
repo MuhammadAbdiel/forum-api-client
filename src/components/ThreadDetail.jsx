@@ -1,69 +1,16 @@
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { postedAt } from "@/utils";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import { Textarea } from "./ui/textarea";
-import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import ThreadCommentInput from "./ThreadCommentInput";
+import CommentItem from "./CommentItem";
 
-const commentSchema = z.object({
-  content: z
-    .string()
-    .max(320, { message: "Comment cannot exceed 320 characters" }),
-});
-
-function CommentForm() {
-  const form = useForm({
-    resolver: zodResolver(commentSchema),
-    defaultValues: {
-      content: "",
-    },
-  });
-
-  const onSubmit = (data) => {
-    console.log(data);
-    form.reset();
-  };
-
-  return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="mt-5">
-        <FormField
-          control={form.control}
-          name="content"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Textarea
-                  rows={10}
-                  placeholder="Comment this thread"
-                  {...field}
-                  className="w-full border border-gray-300 rounded-md"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <p className="text-right text-sm text-gray-500 mt-3">
-          {form.watch("content")?.length || 0}/320
-        </p>
-        <Button type="submit" className="w-full text-white mt-5">
-          Comment
-        </Button>
-      </form>
-    </Form>
-  );
-}
-
-export default function ThreadDetail({ threadDetail }) {
+export default function ThreadDetail({
+  threadDetail,
+  onCommentThread,
+  comments,
+  onDeleteComment,
+  onReplyComment,
+  onDeleteReply,
+}) {
   return (
     <div className="border border-gray-300 p-4 rounded-md mb-4">
       <div className="flex items-center gap-4">
@@ -87,7 +34,24 @@ export default function ThreadDetail({ threadDetail }) {
         <h1 className="text-xl font-bold">{threadDetail.title}</h1>
         <p className="mt-2">{threadDetail.body}</p>
       </div>
-      <CommentForm />
+      <h1 className="text-xl font-bold mt-10">Comments</h1>
+      <div className="mt-5">
+        {comments.length > 0 ? (
+          comments.map((comment) => (
+            <CommentItem
+              key={comment.id}
+              comment={comment}
+              onDeleteComment={onDeleteComment}
+              onReplyComment={onReplyComment}
+              commentId={comment.id}
+              onDeleteReply={onDeleteReply}
+            />
+          ))
+        ) : (
+          <></>
+        )}
+      </div>
+      <ThreadCommentInput onCommentThread={onCommentThread} />
     </div>
   );
 }

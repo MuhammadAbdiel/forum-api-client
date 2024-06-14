@@ -78,6 +78,21 @@ const api = (() => {
     return user;
   }
 
+  async function getUserById(userId) {
+    const response = await _fetchWithAuth(`${BASE_URL}/users/${userId}`);
+    const responseJson = await response.json();
+    const { status } = responseJson;
+
+    if (status !== "success") {
+      throw new Error(responseJson.message);
+    }
+
+    const {
+      data: { user },
+    } = responseJson;
+    return user;
+  }
+
   async function createThread({ title, body }) {
     const response = await _fetchWithAuth(`${BASE_URL}/threads`, {
       method: "POST",
@@ -220,6 +235,7 @@ const api = (() => {
     register,
     login,
     getOwnProfile,
+    getUserById,
     createThread,
     getAllThread,
     getThreadById,

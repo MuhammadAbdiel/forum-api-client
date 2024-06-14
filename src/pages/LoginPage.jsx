@@ -47,6 +47,7 @@ export default function LoginPage() {
 
   const onLogin = ({ username, password }) => {
     dispatch(asyncSetAuthUser({ username, password }));
+    form.reset();
   };
 
   return (

@@ -26,6 +26,7 @@ export default function CreateThreadForm({ form, onCreate }) {
   const handleCreate = async (data) => {
     await onCreate(data);
     setOpen(false);
+    form.reset();
   };
 
   return (
