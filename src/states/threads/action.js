@@ -1,11 +1,11 @@
-import api from "@/utils/api";
-import { hideLoading, showLoading } from "react-redux-loading-bar";
-import Swal from "sweetalert2";
+import api from '@/utils/api'
+import { hideLoading, showLoading } from 'react-redux-loading-bar'
+import Swal from 'sweetalert2'
 
 const ActionType = {
-  RECEIVE_THREADS: "RECEIVE_THREADS",
-  ADD_THREAD: "ADD_THREAD",
-};
+  RECEIVE_THREADS: 'RECEIVE_THREADS',
+  ADD_THREAD: 'ADD_THREAD',
+}
 
 function receiveThreadsActionCreator(threads) {
   return {
@@ -13,7 +13,7 @@ function receiveThreadsActionCreator(threads) {
     payload: {
       threads,
     },
-  };
+  }
 }
 
 function addThreadActionCreator(thread) {
@@ -22,36 +22,36 @@ function addThreadActionCreator(thread) {
     payload: {
       thread,
     },
-  };
+  }
 }
 
 function asyncReceiveThreads() {
   return async (dispatch) => {
-    dispatch(showLoading());
+    dispatch(showLoading())
 
     try {
-      const threads = await api.getAllThread();
+      const threads = await api.getAllThread()
 
-      dispatch(receiveThreadsActionCreator(threads));
+      dispatch(receiveThreadsActionCreator(threads))
     } catch (error) {
       Swal.fire({
-        icon: "error",
-        title: "Oops...",
+        icon: 'error',
+        title: 'Oops...',
         text: error.message,
-      });
+      })
     } finally {
-      dispatch(hideLoading());
+      dispatch(hideLoading())
     }
-  };
+  }
 }
 
 function asyncAddThread({ title, body }) {
   return async (dispatch) => {
-    dispatch(showLoading());
+    dispatch(showLoading())
 
     try {
-      const thread = await api.createThread({ title, body });
-      const user = await api.getOwnProfile();
+      const thread = await api.createThread({ title, body })
+      const user = await api.getOwnProfile()
 
       const response = {
         id: thread.id,
@@ -62,24 +62,24 @@ function asyncAddThread({ title, body }) {
           username: user.username,
           fullname: user.fullname,
         },
-      };
+      }
 
-      dispatch(addThreadActionCreator(response));
+      dispatch(addThreadActionCreator(response))
       Swal.fire({
-        icon: "success",
-        title: "Success",
-        text: "Create Thread Successful",
-      });
+        icon: 'success',
+        title: 'Success',
+        text: 'Create Thread Successful',
+      })
     } catch (error) {
       Swal.fire({
-        icon: "error",
-        title: "Oops...",
+        icon: 'error',
+        title: 'Oops...',
         text: error.message,
-      });
+      })
     } finally {
-      dispatch(hideLoading());
+      dispatch(hideLoading())
     }
-  };
+  }
 }
 
 export {
@@ -88,4 +88,4 @@ export {
   addThreadActionCreator,
   asyncReceiveThreads,
   asyncAddThread,
-};
+}

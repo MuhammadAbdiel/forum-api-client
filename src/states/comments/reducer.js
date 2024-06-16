@@ -1,20 +1,20 @@
-import { ActionType } from "./action";
+import { ActionType } from './action'
 
 function commentsReducer(comments = [], action = {}) {
   switch (action.type) {
     case ActionType.RECEIVE_COMMENTS:
-      return action.payload.comments;
+      return action.payload.comments
     case ActionType.CLEAR_COMMENTS:
-      return [];
+      return []
     case ActionType.ADD_COMMENT:
-      return [...comments, action.payload.comment];
+      return [...comments, action.payload.comment]
     case ActionType.DELETE_COMMENT:
       return comments.filter(
-        (comment) => comment.id !== action.payload.commentId
-      );
+        (comment) => comment.id !== action.payload.commentId,
+      )
     default:
-      return comments;
+      return comments
   }
 }
 
-export default commentsReducer;
+export default commentsReducer

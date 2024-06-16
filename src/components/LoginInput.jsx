@@ -6,11 +6,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Eye, EyeOff } from "lucide-react";
-import { Link } from "react-router-dom";
+} from '@/components/ui/form'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Eye, EyeOff } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 export default function LoginInput({
   form,
@@ -20,18 +20,18 @@ export default function LoginInput({
 }) {
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onLogin)} className="space-y-8 mt-5">
+      <form onSubmit={form.handleSubmit(onLogin)} className='space-y-8 mt-5'>
         <FormField
           control={form.control}
-          name="username"
+          name='username'
           render={({ field }) => (
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
                 <Input
-                  id="username"
-                  type="text"
-                  placeholder="Username"
+                  id='username'
+                  type='text'
+                  placeholder='Username'
                   {...field}
                 />
               </FormControl>
@@ -44,29 +44,29 @@ export default function LoginInput({
         />
         <FormField
           control={form.control}
-          name="password"
+          name='password'
           render={({ field }) => (
             <FormItem>
-              <div className="flex items-center justify-between">
+              <div className='flex items-center justify-between'>
                 <FormLabel>Password</FormLabel>
-                <Link to="#" className="ml-auto inline-block text-sm underline">
+                <Link to='#' className='ml-auto inline-block text-sm underline'>
                   Forgot your password?
                 </Link>
               </div>
               <FormControl>
-                <div className="relative">
+                <div className='relative'>
                   <Input
-                    id="password"
+                    id='password'
                     type={passwordType}
-                    placeholder="Password"
+                    placeholder='Password'
                     {...field}
                   />
                   <Button
-                    type="button"
+                    type='button'
                     onClick={togglePasswordVisibility}
-                    className="absolute right-2 top-1/2 transform -translate-y-1/2"
+                    className='absolute right-2 top-1/2 transform -translate-y-1/2'
                   >
-                    {passwordType === "password" ? <Eye /> : <EyeOff />}
+                    {passwordType === 'password' ? <Eye /> : <EyeOff />}
                   </Button>
                 </div>
               </FormControl>
@@ -74,10 +74,10 @@ export default function LoginInput({
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full">
+        <Button type='submit' className='w-full'>
           Login
         </Button>
       </form>
     </Form>
-  );
+  )
 }

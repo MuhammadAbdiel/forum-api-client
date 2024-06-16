@@ -1,13 +1,13 @@
-import api from "@/utils/api";
-import Swal from "sweetalert2";
-import { hideLoading, showLoading } from "react-redux-loading-bar";
+import api from '@/utils/api'
+import Swal from 'sweetalert2'
+import { hideLoading, showLoading } from 'react-redux-loading-bar'
 
 const ActionType = {
-  RECEIVE_COMMENTS: "RECEIVE_COMMENTS",
-  CLEAR_COMMENTS: "CLEAR_COMMENTS",
-  ADD_COMMENT: "ADD_COMMENT",
-  DELETE_COMMENT: "DELETE_COMMENT",
-};
+  RECEIVE_COMMENTS: 'RECEIVE_COMMENTS',
+  CLEAR_COMMENTS: 'CLEAR_COMMENTS',
+  ADD_COMMENT: 'ADD_COMMENT',
+  DELETE_COMMENT: 'DELETE_COMMENT',
+}
 
 function receiveCommentsActionCreator(comments) {
   return {
@@ -15,13 +15,13 @@ function receiveCommentsActionCreator(comments) {
     payload: {
       comments,
     },
-  };
+  }
 }
 
 function clearCommentsActionCreator() {
   return {
     type: ActionType.CLEAR_COMMENTS,
-  };
+  }
 }
 
 function addCommentActionCreator(comment) {
@@ -30,7 +30,7 @@ function addCommentActionCreator(comment) {
     payload: {
       comment,
     },
-  };
+  }
 }
 
 function deleteCommentActionCreator(commentId) {
@@ -39,37 +39,37 @@ function deleteCommentActionCreator(commentId) {
     payload: {
       commentId,
     },
-  };
+  }
 }
 
 function asyncReceiveComments(threadId) {
   return async (dispatch) => {
-    dispatch(clearCommentsActionCreator());
-    dispatch(showLoading());
+    dispatch(clearCommentsActionCreator())
+    dispatch(showLoading())
 
     try {
-      const threadDetail = await api.getThreadById(threadId);
+      const threadDetail = await api.getThreadById(threadId)
 
-      dispatch(receiveCommentsActionCreator(threadDetail.comments));
+      dispatch(receiveCommentsActionCreator(threadDetail.comments))
     } catch (error) {
       Swal.fire({
-        icon: "error",
-        title: "Oops...",
+        icon: 'error',
+        title: 'Oops...',
         text: error.message,
-      });
+      })
     } finally {
-      dispatch(hideLoading());
+      dispatch(hideLoading())
     }
-  };
+  }
 }
 
 function asyncAddComment(threadId, { content }) {
   return async (dispatch) => {
-    dispatch(showLoading());
+    dispatch(showLoading())
 
     try {
-      const comment = await api.createComment(threadId, { content });
-      const user = await api.getOwnProfile();
+      const comment = await api.createComment(threadId, { content })
+      const user = await api.getOwnProfile()
 
       const response = {
         id: comment.id,
@@ -78,39 +78,39 @@ function asyncAddComment(threadId, { content }) {
         username: user.username,
         fullname: user.fullname,
         replies: [],
-      };
+      }
 
-      dispatch(addCommentActionCreator(response));
+      dispatch(addCommentActionCreator(response))
     } catch (error) {
       Swal.fire({
-        icon: "error",
-        title: "Oops...",
+        icon: 'error',
+        title: 'Oops...',
         text: error.message,
-      });
+      })
     } finally {
-      dispatch(hideLoading());
+      dispatch(hideLoading())
     }
-  };
+  }
 }
 
 function asyncDeleteComment(threadId, commentId) {
   return async (dispatch) => {
-    dispatch(showLoading());
+    dispatch(showLoading())
 
     try {
-      await api.deleteComment(threadId, commentId);
+      await api.deleteComment(threadId, commentId)
 
-      dispatch(deleteCommentActionCreator(commentId));
+      dispatch(deleteCommentActionCreator(commentId))
     } catch (error) {
       Swal.fire({
-        icon: "error",
-        title: "Oops...",
+        icon: 'error',
+        title: 'Oops...',
         text: error.message,
-      });
+      })
     } finally {
-      dispatch(hideLoading());
+      dispatch(hideLoading())
     }
-  };
+  }
 }
 
 export {
@@ -122,4 +122,4 @@ export {
   receiveCommentsActionCreator,
   asyncAddComment,
   asyncDeleteComment,
-};
+}

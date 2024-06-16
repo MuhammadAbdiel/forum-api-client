@@ -1,18 +1,18 @@
-import { ActionType } from "./action";
+import { ActionType } from './action'
 
 function repliesReducer(replies = [], action = {}) {
   switch (action.type) {
     case ActionType.RECEIVE_REPLIES:
-      return action.payload.replies;
+      return action.payload.replies
     case ActionType.CLEAR_REPLIES:
-      return [];
+      return []
     case ActionType.ADD_REPLY:
-      return [...replies, action.payload.reply];
+      return [...replies, action.payload.reply]
     case ActionType.DELETE_REPLY:
-      return replies.filter((reply) => reply.id !== action.payload.replyId);
+      return replies.filter((reply) => reply.id !== action.payload.replyId)
     default:
-      return replies;
+      return replies
   }
 }
 
-export default repliesReducer;
+export default repliesReducer
