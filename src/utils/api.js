@@ -188,6 +188,24 @@ const api = (() => {
     }
   }
 
+  async function getCommentById(threadId, commentId) {
+    const response = await _fetchWithAuth(
+      `${BASE_URL}/threads/${threadId}/comments/${commentId}`
+    );
+
+    const responseJson = await response.json();
+    const { status } = responseJson;
+
+    if (status !== "success") {
+      throw new Error(responseJson.message);
+    }
+
+    const {
+      data: { comment },
+    } = responseJson;
+    return comment;
+  }
+
   async function createReply(threadId, commentId, { content }) {
     const response = await _fetchWithAuth(
       `${BASE_URL}/threads/${threadId}/comments/${commentId}/replies`,
@@ -241,6 +259,7 @@ const api = (() => {
     getThreadById,
     createComment,
     deleteComment,
+    getCommentById,
     createReply,
     deleteReply,
   };

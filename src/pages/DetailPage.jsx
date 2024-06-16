@@ -16,14 +16,13 @@ export default function DetailPage() {
   const { id } = useParams();
   const threadDetail = useSelector((state) => state.threadDetail);
   const comments = useSelector((state) => state.comments);
-  const replies = useSelector((state) => state.replies);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(asyncReceiveThreadDetail(id));
     dispatch(asyncReceiveComments(id));
-  }, [id, dispatch, replies]);
+  }, [id, dispatch]);
 
   const onCommentThread = ({ content }) => {
     dispatch(asyncAddComment(id, { content }));
@@ -87,6 +86,7 @@ export default function DetailPage() {
         <Button>Back to Home</Button>
       </Link>
       <ThreadDetail
+        threadId={id}
         threadDetail={threadDetail}
         onCommentThread={onCommentThread}
         comments={comments}

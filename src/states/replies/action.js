@@ -48,13 +48,9 @@ function asyncReceiveReplies(threadId, commentId) {
     dispatch(showLoading());
 
     try {
-      const threadDetail = await api.getThreadById(threadId);
+      const commentDetail = await api.getCommentById(threadId, commentId);
 
-      const comment = threadDetail.comments.find(
-        (comment) => comment.id === commentId
-      );
-
-      dispatch(receiveRepliesActionCreator(comment?.replies));
+      dispatch(receiveRepliesActionCreator(commentDetail.replies));
     } catch (error) {
       Swal.fire({
         icon: "error",
@@ -64,6 +60,12 @@ function asyncReceiveReplies(threadId, commentId) {
     } finally {
       dispatch(hideLoading());
     }
+  };
+}
+
+function asyncClearReplies() {
+  return async (dispatch) => {
+    dispatch(clearRepliesActionCreator());
   };
 }
 
@@ -121,6 +123,7 @@ export {
   receiveRepliesActionCreator,
   clearRepliesActionCreator,
   addReplyActionCreator,
+  asyncClearReplies,
   deleteReplyActionCreator,
   asyncReceiveReplies,
   asyncAddReply,

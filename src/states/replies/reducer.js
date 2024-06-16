@@ -3,7 +3,7 @@ import { ActionType } from "./action";
 function repliesReducer(replies = [], action = {}) {
   switch (action.type) {
     case ActionType.RECEIVE_REPLIES:
-      return action.payload.replies || [];
+      return action.payload.replies;
     case ActionType.CLEAR_REPLIES:
       return [];
     case ActionType.ADD_REPLY:

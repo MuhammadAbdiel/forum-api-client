@@ -1,14 +1,10 @@
 import { postedAt } from "@/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
-import {
-  useContext,
-  // , useEffect
-  useState,
-} from "react";
+import { useContext, useEffect, useState } from "react";
 import AuthContext from "@/contexts/AuthContext";
-// import { useDispatch, useSelector } from "react-redux";
-// import { asyncReceiveReplies } from "@/states/replies/action";
+import { useDispatch, useSelector } from "react-redux";
+import { asyncReceiveReplies } from "@/states/replies/action";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -22,6 +18,7 @@ const replySchema = z.object({
 });
 
 export default function CommentItem({
+  threadId,
   comment,
   onDeleteComment,
   onReplyComment,
@@ -29,8 +26,13 @@ export default function CommentItem({
   onDeleteReply,
 }) {
   const { authUser } = useContext(AuthContext);
-
+  const replies = useSelector((state) => state.replies);
+  const dispatch = useDispatch();
   const [showReply, setShowReply] = useState(false);
+
+  useEffect(() => {
+    dispatch(asyncReceiveReplies(threadId, commentId));
+  }, [dispatch, threadId, commentId]);
 
   const form = useForm({
     resolver: zodResolver(replySchema),
@@ -85,10 +87,10 @@ export default function CommentItem({
           )}
         </div>
       </div>
-      {comment.replies && comment.replies.length > 0 && (
+      {replies && replies.length > 0 && (
         <div className="ml-10 mt-4">
           <h1 className="text-xl font-bold mt-10">Replies</h1>
-          {comment.replies.map((reply) => (
+          {replies.map((reply) => (
             <CommentReplyItem
               key={reply.id}
               reply={reply}

@@ -4,6 +4,7 @@ import ThreadCommentInput from "./ThreadCommentInput";
 import CommentItem from "./CommentItem";
 
 export default function ThreadDetail({
+  threadId,
   threadDetail,
   onCommentThread,
   comments,
@@ -40,6 +41,7 @@ export default function ThreadDetail({
           comments.map((comment) => (
             <CommentItem
               key={comment.id}
+              threadId={threadId}
               comment={comment}
               onDeleteComment={onDeleteComment}
               onReplyComment={onReplyComment}
