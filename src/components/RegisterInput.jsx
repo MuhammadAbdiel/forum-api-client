@@ -10,8 +10,9 @@ import {
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Eye, EyeOff } from 'lucide-react'
+import PropTypes from 'prop-types'
 
-export default function RegisterInput({
+function RegisterInput({
   form,
   passwordType,
   togglePasswordVisibility,
@@ -95,3 +96,12 @@ export default function RegisterInput({
     </Form>
   )
 }
+
+RegisterInput.propTypes = {
+  form: PropTypes.object,
+  passwordType: PropTypes.string,
+  togglePasswordVisibility: PropTypes.func,
+  onRegister: PropTypes.func,
+}
+
+export default RegisterInput

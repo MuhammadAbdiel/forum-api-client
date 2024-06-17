@@ -77,7 +77,6 @@ function asyncAddComment(threadId, { content }) {
         date: new Date().toISOString(),
         username: user.username,
         fullname: user.fullname,
-        replies: [],
       }
 
       dispatch(addCommentActionCreator(response))

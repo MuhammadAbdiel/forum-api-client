@@ -11,13 +11,9 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Eye, EyeOff } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
-export default function LoginInput({
-  form,
-  passwordType,
-  togglePasswordVisibility,
-  onLogin,
-}) {
+function LoginInput({ form, passwordType, togglePasswordVisibility, onLogin }) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onLogin)} className='space-y-8 mt-5'>
@@ -81,3 +77,12 @@ export default function LoginInput({
     </Form>
   )
 }
+
+LoginInput.propTypes = {
+  form: PropTypes.object,
+  passwordType: PropTypes.string,
+  togglePasswordVisibility: PropTypes.func,
+  onLogin: PropTypes.func,
+}
+
+export default LoginInput

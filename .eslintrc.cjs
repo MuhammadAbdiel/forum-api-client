@@ -20,5 +20,6 @@ module.exports = {
     'no-undef': 'off',
     'react/prop-types': 'off',
     'react/no-unknown-property': 'off',
+    'no-case-declarations': 'off',
   },
 }

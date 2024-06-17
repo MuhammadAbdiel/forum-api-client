@@ -1,7 +1,7 @@
 import { postedAt } from '@/utils'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { Button } from './ui/button'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import AuthContext from '@/contexts/AuthContext'
 import { useDispatch, useSelector } from 'react-redux'
 import { asyncReceiveReplies } from '@/states/replies/action'
@@ -10,6 +10,7 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import CommentReplyInput from './CommentReplyInput'
 import CommentReplyItem from './CommentReplyItem'
+import { makeGetRepliesByCommentId } from '@/states/replies/selector'
 
 const replySchema = z.object({
   content: z
@@ -25,8 +26,13 @@ export default function CommentItem({
   commentId,
   onDeleteReply,
 }) {
+  // Selektor memoized untuk mengambil replies berdasarkan commentId
+  const getRepliesByCommentId = useMemo(() => makeGetRepliesByCommentId(), [])
+  const replies = useSelector((state) =>
+    getRepliesByCommentId(state, commentId),
+  )
+
   const { authUser } = useContext(AuthContext)
-  const replies = useSelector((state) => state.replies)
   const dispatch = useDispatch()
   const [showReply, setShowReply] = useState(false)
 

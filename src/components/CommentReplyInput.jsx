@@ -7,8 +7,9 @@ import {
 } from '@/components/ui/form'
 import { Textarea } from './ui/textarea'
 import { Button } from './ui/button'
+import PropTypes from 'prop-types'
 
-export default function CommentReplyInput({ form, handleReplySubmit }) {
+function CommentReplyInput({ form, handleReplySubmit }) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleReplySubmit)} className='mt-5'>
@@ -39,3 +40,10 @@ export default function CommentReplyInput({ form, handleReplySubmit }) {
     </Form>
   )
 }
+
+CommentReplyInput.propTypes = {
+  form: PropTypes.object,
+  handleReplySubmit: PropTypes.func,
+}
+
+export default CommentReplyInput

@@ -19,8 +19,9 @@ import {
 } from 'lucide-react'
 import AuthContext from '@/contexts/AuthContext'
 import { useContext } from 'react'
+import PropTypes from 'prop-types'
 
-export default function Navbar({ keyword, onKeywordChangeHandler }) {
+function Navbar({ keyword, onKeywordChangeHandler }) {
   const { authUser, onLogout } = useContext(AuthContext)
 
   return (
@@ -92,3 +93,10 @@ export default function Navbar({ keyword, onKeywordChangeHandler }) {
     </header>
   )
 }
+
+Navbar.propTypes = {
+  keyword: PropTypes.string,
+  onKeywordChangeHandler: PropTypes.func,
+}
+
+export default Navbar

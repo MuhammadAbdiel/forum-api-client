@@ -1,6 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { postedAt } from '@/utils'
 import { useNavigate } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 function TextWithLimit({ text, limit }) {
   const words = text.split(' ')
@@ -10,7 +11,7 @@ function TextWithLimit({ text, limit }) {
   return <p>{truncatedText}</p>
 }
 
-export default function ThreadItem({ id, title, body, user, date }) {
+function ThreadItem({ id, title, body, user, date }) {
   const navigate = useNavigate()
 
   const onThreadClick = () => {
@@ -68,3 +69,13 @@ export default function ThreadItem({ id, title, body, user, date }) {
     </div>
   )
 }
+
+ThreadItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  body: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
+  date: PropTypes.string.isRequired,
+}
+
+export default ThreadItem

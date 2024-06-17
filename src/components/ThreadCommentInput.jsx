@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/form'
 import { Textarea } from './ui/textarea'
 import { Button } from './ui/button'
+import PropTypes from 'prop-types'
 
 const commentSchema = z.object({
   content: z
@@ -17,7 +18,7 @@ const commentSchema = z.object({
     .max(320, { message: 'Comment cannot exceed 320 characters' }),
 })
 
-export default function ThreadCommentInput({ onCommentThread }) {
+function ThreadCommentInput({ onCommentThread }) {
   const form = useForm({
     resolver: zodResolver(commentSchema),
     defaultValues: {
@@ -60,3 +61,9 @@ export default function ThreadCommentInput({ onCommentThread }) {
     </Form>
   )
 }
+
+ThreadCommentInput.propTypes = {
+  onCommentThread: PropTypes.func,
+}
+
+export default ThreadCommentInput

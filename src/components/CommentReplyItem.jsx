@@ -3,8 +3,9 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { Button } from './ui/button'
 import { useContext } from 'react'
 import AuthContext from '@/contexts/AuthContext'
+import PropTypes from 'prop-types'
 
-export default function CommentReplyItem({ commentId, reply, onDeleteReply }) {
+function CommentReplyItem({ commentId, reply, onDeleteReply }) {
   const { authUser } = useContext(AuthContext)
 
   return (
@@ -38,3 +39,11 @@ export default function CommentReplyItem({ commentId, reply, onDeleteReply }) {
     </div>
   )
 }
+
+CommentReplyItem.propTypes = {
+  commentId: PropTypes.string.isRequired,
+  reply: PropTypes.object.isRequired,
+  onDeleteReply: PropTypes.func.isRequired,
+}
+
+export default CommentReplyItem

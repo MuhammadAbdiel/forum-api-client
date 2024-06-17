@@ -1,15 +1,47 @@
 import { ActionType } from './action'
 
-function repliesReducer(replies = [], action = {}) {
+const initialState = {
+  repliesByCommentId: {},
+}
+
+function repliesReducer(replies = initialState, action = {}) {
   switch (action.type) {
     case ActionType.RECEIVE_REPLIES:
-      return action.payload.replies
+      return {
+        ...replies,
+        repliesByCommentId: {
+          ...replies.repliesByCommentId,
+          [action.payload.commentId]: action.payload.replies,
+        },
+      }
     case ActionType.CLEAR_REPLIES:
-      return []
+      return {
+        ...replies,
+        repliesByCommentId: {},
+      }
     case ActionType.ADD_REPLY:
-      return [...replies, action.payload.reply]
+      const { commentId, reply } = action.payload
+      return {
+        ...replies,
+        repliesByCommentId: {
+          ...replies.repliesByCommentId,
+          [commentId]: [
+            ...(replies.repliesByCommentId[commentId] || []),
+            reply,
+          ],
+        },
+      }
     case ActionType.DELETE_REPLY:
-      return replies.filter((reply) => reply.id !== action.payload.replyId)
+      const { replyId, commentId: delCommentId } = action.payload
+      return {
+        ...replies,
+        repliesByCommentId: {
+          ...replies.repliesByCommentId,
+          [delCommentId]: replies.repliesByCommentId[delCommentId].filter(
+            (reply) => reply.id !== replyId,
+          ),
+        },
+      }
     default:
       return replies
   }

@@ -19,8 +19,9 @@ import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import { Plus } from 'lucide-react'
 import { useState } from 'react'
+import PropTypes from 'prop-types'
 
-export default function CreateThreadForm({ form, onCreate }) {
+function CreateThreadForm({ form, onCreate }) {
   const [open, setOpen] = useState(false)
 
   const handleCreate = async (data) => {
@@ -100,3 +101,10 @@ export default function CreateThreadForm({ form, onCreate }) {
     </Dialog>
   )
 }
+
+CreateThreadForm.propTypes = {
+  form: PropTypes.object,
+  onCreate: PropTypes.func,
+}
+
+export default CreateThreadForm

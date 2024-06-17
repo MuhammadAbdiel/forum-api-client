@@ -1,7 +1,8 @@
 import ThreadItem from './ThreadItem'
 import { CardContent } from './ui/card'
+import PropTypes from 'prop-types'
 
-export default function ThreadsList({ threads }) {
+function ThreadsList({ threads }) {
   return (
     <CardContent className='grid gap-8'>
       {threads.map((thread) => (
@@ -10,3 +11,9 @@ export default function ThreadsList({ threads }) {
     </CardContent>
   )
 }
+
+ThreadsList.propTypes = {
+  threads: PropTypes.array.isRequired,
+}
+
+export default ThreadsList
