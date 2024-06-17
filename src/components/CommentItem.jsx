@@ -1,16 +1,21 @@
 import { postedAt } from '@/utils'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { Button } from './ui/button'
-import { useContext, useEffect, useMemo, useState } from 'react'
+import {
+  useContext,
+  // useEffect,
+  // useMemo,
+  useState,
+} from 'react'
 import AuthContext from '@/contexts/AuthContext'
-import { useDispatch, useSelector } from 'react-redux'
-import { asyncReceiveReplies } from '@/states/replies/action'
+// import { useDispatch, useSelector } from 'react-redux'
+// import { asyncReceiveReplies } from '@/states/replies/action'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import CommentReplyInput from './CommentReplyInput'
 import CommentReplyItem from './CommentReplyItem'
-import { makeGetRepliesByCommentId } from '@/states/replies/selector'
+// import { makeGetRepliesByCommentId } from '@/states/replies/selector'
 
 const replySchema = z.object({
   content: z
@@ -19,26 +24,26 @@ const replySchema = z.object({
 })
 
 export default function CommentItem({
-  threadId,
+  // threadId,
   comment,
   onDeleteComment,
   onReplyComment,
   commentId,
   onDeleteReply,
 }) {
-  // Selektor memoized untuk mengambil replies berdasarkan commentId
-  const getRepliesByCommentId = useMemo(() => makeGetRepliesByCommentId(), [])
-  const replies = useSelector((state) =>
-    getRepliesByCommentId(state, commentId),
-  )
+  // // Selektor memoized untuk mengambil replies berdasarkan commentId
+  // const getRepliesByCommentId = useMemo(() => makeGetRepliesByCommentId(), [])
+  // const replies = useSelector((state) =>
+  //   getRepliesByCommentId(state, commentId),
+  // )
 
   const { authUser } = useContext(AuthContext)
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const [showReply, setShowReply] = useState(false)
 
-  useEffect(() => {
-    dispatch(asyncReceiveReplies(threadId, commentId))
-  }, [dispatch, threadId, commentId])
+  // useEffect(() => {
+  //   dispatch(asyncReceiveReplies(threadId, commentId))
+  // }, [dispatch, threadId, commentId])
 
   const form = useForm({
     resolver: zodResolver(replySchema),
@@ -93,10 +98,10 @@ export default function CommentItem({
           )}
         </div>
       </div>
-      {replies && replies.length > 0 && (
+      {comment.replies && comment.replies.length > 0 && (
         <div className='ml-10 mt-4'>
           <h1 className='text-xl font-bold mt-10'>Replies</h1>
-          {replies.map((reply) => (
+          {comment.replies.map((reply) => (
             <CommentReplyItem
               key={reply.id}
               reply={reply}

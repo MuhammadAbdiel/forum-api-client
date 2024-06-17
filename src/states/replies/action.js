@@ -9,11 +9,10 @@ const ActionType = {
   DELETE_REPLY: 'DELETE_REPLY',
 }
 
-function receiveRepliesActionCreator(commentId, replies) {
+function receiveRepliesActionCreator(replies) {
   return {
     type: ActionType.RECEIVE_REPLIES,
     payload: {
-      commentId,
       replies,
     },
   }
@@ -25,21 +24,19 @@ function clearRepliesActionCreator() {
   }
 }
 
-function addReplyActionCreator(commentId, reply) {
+function addReplyActionCreator(reply) {
   return {
     type: ActionType.ADD_REPLY,
     payload: {
-      commentId,
       reply,
     },
   }
 }
 
-function deleteReplyActionCreator(commentId, replyId) {
+function deleteReplyActionCreator(replyId) {
   return {
     type: ActionType.DELETE_REPLY,
     payload: {
-      commentId,
       replyId,
     },
   }
@@ -53,7 +50,7 @@ function asyncReceiveReplies(threadId, commentId) {
     try {
       const commentDetail = await api.getCommentById(threadId, commentId)
 
-      dispatch(receiveRepliesActionCreator(commentId, commentDetail.replies))
+      dispatch(receiveRepliesActionCreator(commentDetail.replies))
     } catch (error) {
       Swal.fire({
         icon: 'error',
@@ -88,7 +85,7 @@ function asyncAddReply(threadId, commentId, { content }) {
         fullname: user.fullname,
       }
 
-      dispatch(addReplyActionCreator(commentId, response))
+      dispatch(addReplyActionCreator(response))
     } catch (error) {
       Swal.fire({
         icon: 'error',
@@ -108,7 +105,7 @@ function asyncDeleteReply(threadId, commentId, replyId) {
     try {
       await api.deleteReply(threadId, commentId, replyId)
 
-      dispatch(deleteReplyActionCreator(commentId, replyId))
+      dispatch(deleteReplyActionCreator(replyId))
     } catch (error) {
       Swal.fire({
         icon: 'error',
