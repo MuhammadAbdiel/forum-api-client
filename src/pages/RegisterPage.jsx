@@ -12,7 +12,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import RegisterInput from '@/components/RegisterInput'
 import { useDispatch } from 'react-redux'
-import { asyncRegisterUser } from '@/states/users/action'
+import { asyncRegisterUser } from '@/states/users/slice'
 
 const registerSchema = z.object({
   fullname: z

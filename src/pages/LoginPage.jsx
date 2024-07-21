@@ -11,7 +11,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { asyncSetAuthUser } from '@/states/authUser/action'
+import { asyncSetAuthUser } from '@/states/authUser/slice'
 import LoginInput from '@/components/LoginInput'
 
 const loginSchema = z.object({

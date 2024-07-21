@@ -1,16 +1,16 @@
 import { Button } from '@/components/ui/button'
 import { Link, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { asyncReceiveThreadDetail } from '@/states/threadDetail/action'
+import { asyncReceiveThreadDetail } from '@/states/threadDetail/slice'
 import { useEffect } from 'react'
 import ThreadDetail from '@/components/ThreadDetail'
+import Swal from 'sweetalert2'
+import { asyncAddReply, asyncDeleteReply } from '@/states/replies/slice'
 import {
   asyncAddComment,
   asyncDeleteComment,
   asyncReceiveComments,
-} from '@/states/comments/action'
-import Swal from 'sweetalert2'
-import { asyncAddReply, asyncDeleteReply } from '@/states/replies/action'
+} from '@/states/comments/slice'
 
 export default function DetailPage() {
   const { id } = useParams()
@@ -26,7 +26,8 @@ export default function DetailPage() {
   }, [id, dispatch, replies])
 
   const onCommentThread = ({ content }) => {
-    dispatch(asyncAddComment(id, { content }))
+    // dispatch(asyncAddComment(id, { content }))
+    dispatch(asyncAddComment({ threadId: id, content }))
   }
 
   const onDeleteComment = (commentId) => {
@@ -46,13 +47,15 @@ export default function DetailPage() {
           icon: 'success',
         })
 
-        dispatch(asyncDeleteComment(id, commentId))
+        // dispatch(asyncDeleteComment(id, commentId))
+        dispatch(asyncDeleteComment({ threadId: id, commentId }))
       }
     })
   }
 
   const onReplyComment = (commentId, { content }) => {
-    dispatch(asyncAddReply(id, commentId, { content }))
+    // dispatch(asyncAddReply(id, commentId, { content }))
+    dispatch(asyncAddReply({ threadId: id, commentId, content }))
   }
 
   const onDeleteReply = (commentId, replyId) => {
@@ -72,7 +75,8 @@ export default function DetailPage() {
           icon: 'success',
         })
 
-        dispatch(asyncDeleteReply(id, commentId, replyId))
+        // dispatch(asyncDeleteReply(id, commentId, replyId))
+        dispatch(asyncDeleteReply({ threadId: id, commentId, replyId }))
       }
     })
   }
